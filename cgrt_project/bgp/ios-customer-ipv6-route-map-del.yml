@@ -1,0 +1,7 @@
+---
+- name: Creating IPv6 route maps
+  hosts: R1
+
+  
+  roles:
+     - ios-customer-ipv6-route-map-del

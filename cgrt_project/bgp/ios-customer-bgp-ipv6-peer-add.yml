@@ -1,0 +1,19 @@
+---
+- hosts: Routers
+  gather_facts: yes
+
+  tasks:
+
+  - name: Configuring BGP peer {{customer_peer_add_v6}} - {{customer_desc}}
+    ios_config:
+      lines:
+        - neighbor {{customer_peer_add_v6}} remote-as {{customer_as}}
+        - neighbor {{customer_peer_add_v6}} description {{customer_desc}}-{{customer_circuit_id}}
+        - neighbor {{customer_peer_add_v6}} ebgp-multihop 5
+        - neighbor {{customer_peer_add_v6}} update-source Loopback100
+        - address-family ipv6
+        - neighbor {{customer_peer_add_v6}} activate
+        - neighbor {{customer_peer_add_v6}} route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN in
+        - neighbor {{customer_peer_add_v6}} route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT out
+        - neighbor {{customer_peer_add_v6}} maximum-prefix 250
+      parents: router bgp 262596

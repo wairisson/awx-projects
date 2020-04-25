@@ -1,0 +1,6 @@
+---
+- name: Configuring AS-PATH ACL
+  hosts: Routers
+
+  roles:
+     - ios-customer-as-path-acl-add

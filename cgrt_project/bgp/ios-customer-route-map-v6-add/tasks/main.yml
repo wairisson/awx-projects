@@ -1,0 +1,4 @@
+---
+- name: Criando route-map IPv6
+  ios_config:
+    src: config_template.j2

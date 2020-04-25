@@ -1,0 +1,4 @@
+{% for ases in customer_ases %}
+ip as-path access-list {{customer_as_path_acl}} permit _{{ases}}$
+{% endfor %}
+ip as-path access-list {{customer_as_path_acl}} deny .*

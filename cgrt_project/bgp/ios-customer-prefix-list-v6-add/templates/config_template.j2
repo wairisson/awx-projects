@@ -1,0 +1,8 @@
+{% for prefix in customer_prefixes_v6 %}
+ipv6 prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN seq {{ loop.index+9 }} permit {{ prefix }} le 48
+{% endfor %}
+
+
+{% for prefix in customer_prefixes_v6 %}
+ipv6 prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN-RTBH seq {{ loop.index+9 }} permit {{ prefix }} ge 128
+{% endfor %}

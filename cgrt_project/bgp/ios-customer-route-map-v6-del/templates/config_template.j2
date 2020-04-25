@@ -1,0 +1,35 @@
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN permit 10
+ description "Marca communities todos os clientes e transito parcial"
+continue
+ set local-preference 400
+{% for community in customer_communities %}
+ set community {{community}}
+{% endfor %}
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN permit 20
+ description Permite prefixos /128 de AS-PATH permitidos e marcados com community blackhole
+ match ipv6 address prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN-RTBH
+ match as-path {{customer_as_path_acl}}
+ match community JUNTO-BLACKHOLE
+ set ipv6 next-hop 2001:db8:0:ff::abcf
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN permit 40
+ description Permite prefixos CIDR do cliente
+ match ipv6 address prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN
+ match as-path {{customer_as_path_acl}}
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN deny 1000
+ description FILTRA-DEMAIS-PREFIXOS
+
+
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT deny 10
+ match ipv6 address prefix-list ipv6-bogons
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT deny 20
+ match ipv6 address prefix-list PREFIXOS-GE49
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT permit 30
+ match community 1
+
+

@@ -1,0 +1,4 @@
+---
+- name: Aplicando configuraçõe
+  ios_config:
+    src: ios-routemap.j2 

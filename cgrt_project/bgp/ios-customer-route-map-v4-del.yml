@@ -1,0 +1,7 @@
+---
+- name: Deleting IPv4 route maps
+  hosts: Routers
+
+  
+  roles:
+     - ios-customer-route-map-v4-del

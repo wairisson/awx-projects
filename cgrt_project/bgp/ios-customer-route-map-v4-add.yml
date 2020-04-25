@@ -1,0 +1,8 @@
+---
+- name: Creating IPv4 route maps
+  hosts: Routers
+
+  
+  roles:
+     - ios-customer-route-map-add
+

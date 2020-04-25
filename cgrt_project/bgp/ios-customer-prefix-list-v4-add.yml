@@ -1,0 +1,8 @@
+---
+- name: Creating IPv4 prefix lists
+  hosts: Routers
+
+  
+  roles:
+     - ios-customer-prefix-list-v4-add
+

@@ -1,0 +1,15 @@
+{% if customer_prefix_eq_24 is sameas true %}
+{% for prefix in customer_prefixes %}
+ip prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN  seq {{ loop.index+9 }} permit {{ prefix }}
+{% endfor %}
+{% else %}
+{% for prefix in customer_prefixes %}
+ip prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN  seq {{ loop.index+9 }} permit {{ prefix }} le 24
+{% endfor %}
+{% endif %}
+
+{% for prefix in customer_prefixes %}
+ip prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN-RTBH seq {{ loop.index+9 }} permit {{ prefix }} ge 32
+{% endfor %}
+
+

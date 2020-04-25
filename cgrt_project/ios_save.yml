@@ -1,0 +1,8 @@
+- name: Show commands
+  hosts: R1
+  gather_facts: true
+
+  tasks:
+    - name: save running to startup when modified
+      ios_config:
+        save_when: modified
