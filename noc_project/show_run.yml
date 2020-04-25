@@ -1,0 +1,8 @@
+- name: Show commands
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Show running
+      ios_command:
+        commands: show run
