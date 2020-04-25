@@ -1,6 +1,6 @@
 ---
 - hosts: R1
-  gather_facts: yes
+  gather_facts: no
 
   tasks:
   - name: Deleting BGP peer {{remote_add}} 

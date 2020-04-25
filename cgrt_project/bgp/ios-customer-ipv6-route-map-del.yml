@@ -1,7 +1,7 @@
 ---
 - name: Creating IPv6 route maps
-  hosts: R1
-
+  hosts: Routers
+  gather_facts: no
   
   roles:
      - ios-customer-ipv6-route-map-del

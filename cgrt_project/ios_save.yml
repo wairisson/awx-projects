@@ -1,6 +1,6 @@
 - name: Show commands
   hosts: R1
-  gather_facts: true
+  gather_facts: no
 
   tasks:
     - name: save running to startup when modified

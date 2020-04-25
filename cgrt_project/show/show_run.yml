@@ -1,6 +1,6 @@
 - name: Show commands
   hosts: all
-  gather_facts: true
+  gather_facts: no
 
   tasks:
     - name: Show running

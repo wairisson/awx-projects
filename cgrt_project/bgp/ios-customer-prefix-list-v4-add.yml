@@ -1,6 +1,7 @@
 ---
 - name: Creating IPv4 prefix lists
   hosts: Routers
+  gather_facts: no
 
   
   roles:
