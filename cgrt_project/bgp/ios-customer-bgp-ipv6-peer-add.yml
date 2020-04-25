@@ -1,6 +1,6 @@
 ---
 - hosts: Routers
-  gather_facts: yes
+  gather_facts: no
 
   tasks:
 
