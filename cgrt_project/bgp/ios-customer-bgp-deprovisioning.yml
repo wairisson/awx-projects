@@ -1,0 +1,8 @@
+---
+- name: Deprovisioning Customer {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}
+  hosts: Routers
+  gather_facts: no
+  
+  roles:
+     - ios-customer-bgp-deprovisioning
+

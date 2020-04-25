@@ -1,0 +1,21 @@
+---
+- name: Removing BGP peer {{customer_peer_add}} - {{customer_desc}}  configuration
+  ios_config:
+    lines:
+      - no neighbor {{customer_peer_add}} remote-as {{customer_as}}
+
+    parents: router bgp 262596
+
+- name: Removing as-path acl  - {{customer_as_path_acl}}
+  ios_config:
+    src: ios-customer-as-path-acl-del.j2
+
+- name: Removing IPv4 prefix-lists  - {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}
+  ios_config:
+    src: ios-customer-prefix-list-v4-del.j2 
+
+- name: Removing IPv4 route-maps  - {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}} IN and OUT
+  ios_config:
+    src: ios-customer-route-map-v4-del.j2
+
+
