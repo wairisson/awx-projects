@@ -1,5 +1,5 @@
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN permit 10
- description "Marca communities todos os clientes e transito parcial"
+ description "Marca communities"
 continue
  set local-preference 400
 {% for community in customer_communities %}
@@ -7,29 +7,36 @@ continue
 {% endfor %}
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN permit 20
- description Permite prefixos /128 de AS-PATH permitidos e marcados com community blackhole
+ description "Permite prefixos /128 de AS-PATH permitidos e marcados com community blackhole"
  match ipv6 address prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN-RTBH
  match as-path {{customer_as_path_acl}}
  match community JUNTO-BLACKHOLE
- set ipv6 next-hop 2001:db8:0:ff::abcf
+ set ipv6 next-hop 2001:DB8::666
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN permit 40
- description Permite prefixos CIDR do cliente
+ description "Permite prefixos CIDR do cliente e que estejam contidos na AS Path ACL {{customer_as_path_acl}}"
  match ipv6 address prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN
  match as-path {{customer_as_path_acl}}
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-IN deny 1000
- description FILTRA-DEMAIS-PREFIXOS
+ description "Filtra demais prefixos"
 
 
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT deny 10
+ description "Filtro de prefixos bogons"
  match ipv6 address prefix-list ipv6-bogons
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT deny 20
+ description "Filtro de prefixos maiores ou igual a /49"
  match ipv6 address prefix-list PREFIXOS-GE49
 
-route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT permit 30
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT deny 30
+ description "Filtro  de AS bogons"
+ match as-path 399
+ 
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V6-OUT permit 1000
+ description "Permite prefixos das communities que compoem a full route"
  match community 1
 
 

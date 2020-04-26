@@ -1,4 +1,0 @@
----
-- name: Aplicando configuraçõe
-  ios_config:
-    src: config_template.j2 

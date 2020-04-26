@@ -1,7 +1,0 @@
----
-- name: Deleting IPv6 route maps
-  hosts: Routers
-  gather_facts: no
-  
-  roles:
-     - ios-customer-route-map-v6-del

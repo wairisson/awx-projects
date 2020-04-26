@@ -1,5 +1,5 @@
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 10
- description "Marca communities todos os clientes e transito parcial"
+ description "Marca communities"
 continue
  set local-preference 400
 {% for community in customer_communities %}
@@ -7,24 +7,32 @@ continue
 {% endfor %}
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 20
- description Permite prefixos /32 de AS-PATH permitidos e marcados com community blackhole
+ description "Permite prefixos /32 de AS-PATH permitidos e marcados com community blackhole"
  match ip address prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN-RTBH
  match as-path {{customer_as_path_acl}}
  match community JUNTO-BLACKHOLE
  set ip next-hop 192.0.2.1
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 40
- description Permite prefixos CIDR do cliente
+ description "Permite prefixos CIDR do cliente e que estejam contidos na AS Path ACL {{customer_as_path_acl}}"
  match ip address prefix-list {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN
  match as-path {{customer_as_path_acl}}
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN deny 1000
- description FILTRA-DEMAIS-PREFIXOS
+ description "Filtra demais prefixos"
+
+
 
 
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-OUT deny 10
+ description "Filtro de prefixos maiores ou igual a /25 e prefixos bogons"
  match ip address prefix-list bogons PREFIXOS-GE25
 
-route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-OUT permit 20
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-OUT deny 20
+ description "Filtro  de AS bogons"
+ match as-path 399
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-OUT permit 1000
+ description "Permite prefixos das communities que compoem a full route"
  match community 1
 
