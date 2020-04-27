@@ -1,0 +1,6 @@
+---
+- name: Executando configurações em {{ ansible_hostname}}
+  hosts: Routers_cme
+  
+  roles:
+     - ios-extension-config

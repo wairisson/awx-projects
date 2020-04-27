@@ -1,0 +1,13 @@
+---
+
+- name: Coleta data e hora
+  command: date +%d%m%Y%H%M
+  register: timestamp
+
+- name: Configuring Cisco CME extension
+  ios_config:
+    src: ios-cme-extension-config.j2
+    backup: yes
+    backup_options:
+      filename: "{{ inventory_hostname }}_{{ timestamp.stdout }}.txt"
+      dir_path: /var/lib/awx/projects/cgrt-projects/files/backups/

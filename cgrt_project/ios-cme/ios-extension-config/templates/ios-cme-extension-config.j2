@@ -1,0 +1,19 @@
+ ! Configuracao aparelho fisico
+ !
+ ephone  {{ ephone_index }}
+ description {{ nome_colaborador }}
+ video
+ mac-address {{mac_add}}
+ {% for var in atalho_info %}
+ speed-dial {{ loop.index }} {{ var.num_atalho }} label '"{{ var.nome_atalho }}"'
+ {% endfor %}
+ type 8945
+ button  1:{{ ephone_index }}
+ !
+ ! Configuracao ramal logico
+ !
+ephone-dn  {{ ephone_index }}  octo-line
+ number {{ ephone_num }}
+ pickup-group 10
+ description {{ nome_colaborador }}
+ name {{ nome_colaborador }}
