@@ -1,5 +1,32 @@
 route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 10
- description "Marca communities"
+ description "Seta LP 410"
+ match community CUSTOMER-SET-LP410
+continue 20
+ set local-preference 410
+{% for community in customer_communities %}
+ set community {{community}}
+{% endfor %}
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 11
+ description "Seta LP 420"
+ match community CUSTOMER-SET-LP420
+continue 20
+ set local-preference 420
+{% for community in customer_communities %}
+ set community {{community}}
+{% endfor %}
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 12
+ description "Seta LP 430"
+ match community CUSTOMER-SET-LP430
+continue 20
+ set local-preference 430
+{% for community in customer_communities %}
+ set community {{community}}
+{% endfor %}
+
+route-map {{customer_desc}}-AS{{customer_as}}-{{customer_circuit_id}}-V4-IN permit 13
+ description "Marca communities padrao"
 continue
  set local-preference 400
 {% for community in customer_communities %}
