@@ -1,0 +1,5 @@
+no ip as-path access-list 361 deny .*
+{% for ases in customer_ases %}
+ip as-path access-list 361 permit _{{ases}}$
+{% endfor %}
+ip as-path access-list 361 deny .*

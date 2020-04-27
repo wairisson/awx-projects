@@ -1,4 +1,4 @@
 ---
-- name: Criando route-map IPv6
+- name: Pushing configs from template
   ios_config:
     src: config_template.j2
