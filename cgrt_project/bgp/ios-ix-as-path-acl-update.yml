@@ -1,7 +1,0 @@
----
-- name: Updating IX AS-PATH ACL
-  hosts: IX-Routers
-  gather_facts: no
-
-  roles:
-     - ios-ix-as-path-acl-update

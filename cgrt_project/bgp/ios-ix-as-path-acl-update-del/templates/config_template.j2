@@ -1,0 +1,3 @@
+{% for ases in customer_ases %}
+no ip as-path access-list 361 permit _{{ases}}$
+{% endfor %}

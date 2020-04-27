@@ -1,0 +1,7 @@
+---
+- name: Including Customer ASes into IX AS-PATH ACL
+  hosts: IX-Routers
+  gather_facts: no
+
+  roles:
+     - ios-ix-as-path-acl-update-add
